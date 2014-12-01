@@ -38,7 +38,7 @@ levenshtein = (str1, str2) ->
 #
 # Returns nothing.
 showSuggestions = (examples, input, adapter, name) ->
-  inputCommand = input.text.split(" ")[1]
+  inputCommand = input.text.match(/\w+:\s+(.+)/)[1]
   return unless inputCommand
 
   suggestions = []
@@ -63,5 +63,5 @@ showSuggestions = (examples, input, adapter, name) ->
 module.exports = (robot) ->
   robot.catchAll (msg) ->
     message = msg.message
-    showSuggestions(robot.commands, message, robot.adapter, robot.name) if message.text.match ///^#{robot.name} .*$///i
+    showSuggestions(robot.commands, message, robot.adapter, robot.name) if message.match ///^#{robot.name}: .*$///i
     msg.finish()
