@@ -62,6 +62,7 @@ showSuggestions = (examples, input, adapter, name) ->
 
 module.exports = (robot) ->
   robot.catchAll (msg) ->
+    console.log(msg)
     message = msg.message
     showSuggestions(robot.commands, message, robot.adapter, robot.name) if message.match ///^#{robot.name}: .*$///i
     msg.finish()
